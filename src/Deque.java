@@ -1,7 +1,7 @@
 import java.util.Iterator;
 
 // A double-ended queue
-public class Deque<T> implements Iterable<T> {
+public class Deque<Item> implements Iterable<Item> {
 
     public Deque() {
     }
@@ -17,25 +17,25 @@ public class Deque<T> implements Iterable<T> {
     }
 
     // add item at the front of the deque
-    public void addFirst(T item) {
+    public void addFirst(Item item) {
     }
 
     // add item at the tail of the deque
-    public void addLast(T item) {
+    public void addLast(Item item) {
     }
 
     // remove and return head element
-    public T removeFirst() {
+    public Item removeFirst() {
         return null;
     }
 
     // remove and return tail element
-    public T removeLast() {
+    public Item removeLast() {
         return null;
     }
 
     // return iterator over elements from head to tail
-    public Iterator<T> iterator() {
+    public Iterator<Item> iterator() {
         return null;
     }
 }
