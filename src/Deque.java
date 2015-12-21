@@ -10,6 +10,12 @@ public class Deque<Item> implements Iterable<Item> {
     // end of deque
     private Node last;
 
+    public Deque() {
+        first = null;
+        last = null;
+        size = 0;
+    }
+
     // class representing deque element
     private class Node {
         private Item item;
