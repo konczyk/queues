@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 @RunWith(JUnit4.class)
@@ -45,6 +46,30 @@ public class DequeTest {
     @Test(expected = NoSuchElementException.class)
     public void throwsExceptionWhenCallingNextWithNoMoreItems() {
         deque.iterator().next();
+    }
+
+    @Test
+    public void addsFirst() {
+        deque.addFirst(5);
+        deque.addFirst(8);
+
+        assertEquals(2, deque.size());
+
+        Iterator<Integer> it = deque.iterator();
+        assertEquals(Integer.valueOf(8), it.next());
+        assertEquals(Integer.valueOf(5), it.next());
+    }
+
+    @Test
+    public void addsLast() {
+        deque.addLast(5);
+        deque.addLast(8);
+
+        assertEquals(2, deque.size());
+
+        Iterator<Integer> it = deque.iterator();
+        assertEquals(Integer.valueOf(5), it.next());
+        assertEquals(Integer.valueOf(8), it.next());
     }
 
 }
