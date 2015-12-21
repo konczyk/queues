@@ -14,6 +14,7 @@ public class Deque<Item> implements Iterable<Item> {
     private class Node {
         private Item item;
         private Node next;
+        private Node prev;
     }
 
     // check if deque is empty
@@ -37,6 +38,8 @@ public class Deque<Item> implements Iterable<Item> {
         first.next = oldFirst;
         if (isEmpty())
             last = first;
+        else
+            oldFirst.prev = first;
 
         size++;
     }
@@ -49,10 +52,12 @@ public class Deque<Item> implements Iterable<Item> {
         Node oldLast = last;
         last = new Node();
         last.item = item;
-        if (isEmpty())
+        if (isEmpty()) {
             first = last;
-        else
+        } else {
             oldLast.next = last;
+            last.prev = oldLast;
+        }
 
         size++;
     }
@@ -61,14 +66,34 @@ public class Deque<Item> implements Iterable<Item> {
     public Item removeFirst() {
         if (isEmpty())
             throw new NoSuchElementException("Cannot remove from empty deque");
-        return null;
+
+        Item item = first.item;
+        first = first.next;
+        if (first != null)
+            first.prev = null;
+        else
+            last = first;
+
+        size--;
+
+        return item;
     }
 
     // remove and return item from the end
     public Item removeLast() {
         if (isEmpty())
             throw new NoSuchElementException("Cannot remove from empty deque");
-        return null;
+
+        Item item = last.item;
+        last = last.prev;
+        if (last != null)
+            last.next = null;
+        else
+            first = last;
+
+        size--;
+
+        return item;
     }
 
     // return iterator over elements from head to tail
