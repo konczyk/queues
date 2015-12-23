@@ -108,7 +108,8 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     private class DequeIterator implements Iterator<Item> {
-        Node current = first;
+
+        private Node current = first;
 
         public boolean hasNext() {
             return current != null;
