@@ -81,10 +81,41 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return new QueueIterator();
     }
 
+    // return a shuffled copy of the queue
+    private Item[] shuffled() {
+        // copy queue
+        Item[] shuflled = (Item[]) new Object[size];
+        for (int i = 0; i < size; i++)
+            shuflled[i] = items[i];
+
+        // shuffle contents, uniformly at random
+        for (int i = 0; i < size; i++) {
+            int idx = i + rand.nextInt(size - i);
+            Item temp = shuflled[i];
+            shuflled[i] = shuflled[idx];
+            shuflled[idx] = temp;
+        }
+
+        return shuflled;
+    }
+
     private class QueueIterator implements Iterator<Item> {
 
+        // randomized queue
+        private Item[] iterItems;
+        // queue size
+        private int iterSize;
+        // current item index
+        private int current;
+
+        public QueueIterator() {
+            iterItems = shuffled();
+            iterSize = size;
+            current = 0;
+        }
+
         public boolean hasNext() {
-            return false;
+            return current < iterSize;
         }
 
         public void remove() {
@@ -95,7 +126,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             if (!hasNext())
                 throw new NoSuchElementException("Next item does not exist");
 
-            return null;
+            return iterItems[current++];
         }
 
     }

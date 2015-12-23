@@ -48,6 +48,8 @@ public class RandomizedQueueTest {
         queue.enqueue(5);
 
         assertEquals(1, queue.size());
+        Iterator it = queue.iterator();
+        assertEquals(Integer.valueOf(5), it.next());
     }
 
     @Test
