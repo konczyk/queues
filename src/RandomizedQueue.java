@@ -3,21 +3,35 @@ import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
+    // array of items
+    private Item[] items;
+    // number of items
+    private int size;
+
     public RandomizedQueue() {
+        items = (Item[]) new Object[2];
+        size = 0;
     }
 
     public boolean isEmpty() {
-        return true;
+        return size == 0;
     }
 
     public int size() {
-        return 0;
+        return size;
     }
 
     // add item to the queue
     public void enqueue(Item item) {
         if (item == null)
             throw new NullPointerException("Item cannot be null");
+
+        // enlarge array if necessary
+        if (size == items.length)
+            resize(2 * items.length);
+
+        // add item
+        items[size++] = item;
     }
 
     // remove and return a random item from the queue
@@ -26,6 +40,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException("Dequeue from empty queue");
 
         return null;
+    }
+
+    private void resize(int capacity) {
+        // temp array with new capacity
+        Item[] tmp = (Item[]) new Object[capacity];
+        // copy items
+        for (int i = 0; i < size; i++)
+            tmp[i] = items[i];
+        items = tmp;
     }
 
     // return a random item from the queue

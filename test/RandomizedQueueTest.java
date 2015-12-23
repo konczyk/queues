@@ -42,4 +42,12 @@ public class RandomizedQueueTest {
     public void throwsExceptionWhenCallingNextWithNoMoreItems() {
         queue.iterator().next();
     }
+
+    @Test
+    public void enqueues() {
+        queue.enqueue(5);
+
+        assertEquals(1, queue.size());
+    }
+
 }
