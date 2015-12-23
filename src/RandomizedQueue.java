@@ -72,7 +72,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty())
             throw new NoSuchElementException("Sample from empty queue");
 
-        return null;
+        // return random item from the queue
+        return items[rand.nextInt(size)];
     }
 
     // return an iterator over items in random order
