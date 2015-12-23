@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
@@ -7,6 +8,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] items;
     // number of items
     private int size;
+
+    private final Random rand = new Random();
 
     public RandomizedQueue() {
         items = (Item[]) new Object[2];
@@ -39,7 +42,20 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty())
             throw new NoSuchElementException("Dequeue from empty queue");
 
-        return null;
+        // get random item from the queue
+        int idx = rand.nextInt(size);
+        Item item = items[idx];
+
+        // swap item with the last one and remove
+        items[idx] = items[size-1];
+        items[size-1] = null;
+        size--;
+
+        // shrink array if necessary
+        if (size > 0 && size == items.length / 4)
+            resize(items.length/2);
+
+        return item;
     }
 
     private void resize(int capacity) {

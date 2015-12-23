@@ -50,4 +50,12 @@ public class RandomizedQueueTest {
         assertEquals(1, queue.size());
     }
 
+    @Test
+    public void dequeues() {
+        queue.enqueue(5);
+
+        assertEquals(Integer.valueOf(5), queue.dequeue());
+        assertEquals(0, queue.size());
+    }
+
 }
