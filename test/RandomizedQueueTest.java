@@ -1,71 +1,84 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.*;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 @RunWith(JUnit4.class)
 public class RandomizedQueueTest {
 
-    private RandomizedQueue<Integer> queue;
-
-    @Before
-    public void setUp() {
-        queue = new RandomizedQueue<>();
-    }
-
     @Test(expected = NullPointerException.class)
-    public void throwsExceptionWhenEnqueueNull() {
+    public void throwExceptionWhenEnqueueNull() {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
         queue.enqueue(null);
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void throwsExceptionWhenDequeueFromEmptyQueue() {
+    public void throwExceptionWhenDequeueFromEmptyQueue() {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
         queue.dequeue();
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void throwsExceptionWhenSampleFromEmptyQueue() {
+    public void throwExceptionWhenSampleFromEmptyQueue() {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
         queue.sample();
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void throwsExceptionWhenRemovingFromIterator() {
+    public void throwExceptionWhenRemovingFromIterator() {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
         queue.iterator().remove();
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void throwsExceptionWhenCallingNextWithNoMoreItems() {
+    public void throwExceptionWhenCallingNextWithNoMoreItems() {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
         queue.iterator().next();
     }
 
     @Test
-    public void enqueues() {
+    public void enqueue() {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
+
         queue.enqueue(5);
 
-        assertEquals(1, queue.size());
-        Iterator it = queue.iterator();
-        assertEquals(Integer.valueOf(5), it.next());
+        assertThat(queue.size(), is(1));
+        assertThat(queue.iterator().next(), is(5));
     }
 
     @Test
-    public void dequeues() {
+    public void dequeue() {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
+
         queue.enqueue(5);
 
-        assertEquals(Integer.valueOf(5), queue.dequeue());
-        assertEquals(0, queue.size());
+        assertThat(queue.dequeue(), is(5));
+        assertThat(queue.size(), is(0));
     }
 
     @Test
-    public void samples() {
-        queue.enqueue(5);
+    public void sample() {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
 
-        assertEquals(Integer.valueOf(5), queue.sample());
-        assertEquals(1, queue.size());
+        queue.enqueue(1);
+        queue.enqueue(2);
+        int s1 = 0, s2 = 0;
+        for (int i = 0; i < 100; ++i) {
+            int sample = queue.sample();
+            if (sample == 1) {
+                s1++;
+            } else if (sample == 2) {
+                s2++;
+            }
+        }
+
+        assertThat(queue.size(), is(2));
+        assertThat(s1, greaterThan(0));
+        assertThat(s2, greaterThan(0));
     }
 
 }
