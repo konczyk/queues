@@ -1,18 +1,19 @@
 import java.util.Scanner;
 import java.util.Random;
 
+/**
+ * Client, that takes integer parameter k, reads in a sequence of strings
+ * from standard input and prints exactly k of them, uniformly at random,
+ * using RandomizedQueue object of maximum size at most k.
+ */
 public class SubsetSampled {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         Random rand = new Random();
 
-        // number of items to print
-        // equals max number of items in the queue
         int k = Integer.parseInt(args[0]);
 
-        // populate queue
         RandomizedQueue<String> rq = new RandomizedQueue<>();
         for (int i = 0; sc.hasNext(); i++) {
             String s = sc.next();
@@ -24,7 +25,8 @@ public class SubsetSampled {
             }
         }
 
-        for (String s: rq)
+        for (String s: rq) {
             System.out.println(s);
+        }
     }
 }

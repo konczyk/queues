@@ -1,20 +1,21 @@
 import java.util.Scanner;
 
+/**
+ * Client, that takes integer parameter k, reads in a sequence of strings
+ * from standard input and prints exactly k of them, uniformly at random
+ */
 public class Subset {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
 
-        // number of items to print
         int k = Integer.parseInt(args[0]);
 
-        // populate queue
         RandomizedQueue<String> rq = new RandomizedQueue<>();
-        while (sc.hasNext())
+        while (sc.hasNext()) {
             rq.enqueue(sc.next());
+        }
 
-        // print k items uniformly at random, without repetitions
         while (k > 0) {
             System.out.println(rq.dequeue());
             k--;
