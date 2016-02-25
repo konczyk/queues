@@ -1,6 +1,27 @@
 # Randomized Queues and Deques
 
-Estimate the value of the percolation threshold via Monte Carlo simulation. 
+Generic data types for a deque and a randomized queue using arrays and linked
+lists to implement elementary data structures.
+
+## Implementation constraints
+- Fixed public API for `Deque` and `RandomizedQueue`
+- Both deque and randomized queue containing n items must use at most 48n + 192
+bytes of memory, with deque using space proportional to the number of items
+currently in the deque
+- `Deque` implementation must support each operation in constant worst-case
+time, including iterator operations
+- `RandomizedQueue` implementation must support each operation (except creating
+an iterator) in constant amortized time, iterator construction in linear time
+and iterator operations `next()` and `hasNext()` in constant worst-case time
+- `Subset` running time must be linear in the size of the input, must use only
+a constant amount of memory plus either `Deque` or `RandomizedQueue` of size the
+same as number of strings in the input
+- `SubsetSampled` may use either `Deque` or `RandomizedQueue` of size at most k,
+where k is the number of strings to print
+- All classes should not call library function except those in `java.lang`,
+`java.util.Iterator`, `java.util.Random`, `java.util.Scanner` and
+`java.util.NoSuchElementException`
+
 
 ## Examples 
 
