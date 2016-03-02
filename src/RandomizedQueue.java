@@ -12,6 +12,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private final Random rand = new Random();
 
+    // the items array will contain only Item instances
+    @SuppressWarnings("unchecked")
     public RandomizedQueue() {
         items = (Item[]) new Object[2];
         size = 0;
@@ -60,13 +62,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return item;
     }
 
+    // the tmp array will contain only Item instances copied from the items
+    @SuppressWarnings("unchecked")
     private void resize(int newCapacity) {
         Item[] tmp = (Item[]) new Object[newCapacity];
-
-        for (int i = 0; i < size; i++) {
-            tmp[i] = items[i];
-        }
-
+        System.arraycopy(items, 0, tmp, 0, size);
         items = tmp;
     }
 
@@ -84,32 +84,25 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return new RandomizedQueueIterator();
     }
 
-    private Item[] getShuffledItems() {
-        Item[] shuffled = (Item[]) new Object[size];
-
-        for (int i = 0; i < size; i++) {
-            shuffled[i] = items[i];
-        }
-
+    private void shuffle(Item[] input) {
         // shuffle contents, uniformly at random
         for (int i = 0; i < size; i++) {
             int idx = i + rand.nextInt(size - i);
-            Item temp = shuffled[i];
-            shuffled[i] = shuffled[idx];
-            shuffled[idx] = temp;
+            Item temp = input[i];
+            input[i] = input[idx];
+            input[idx] = temp;
         }
-
-        return shuffled;
     }
 
     private class RandomizedQueueIterator implements Iterator<Item> {
 
-        private Item[] iterItems;
-        private int iterSize;
+        private final Item[] iterItems;
+        private final int iterSize;
         private int current;
 
         public RandomizedQueueIterator() {
-            iterItems = getShuffledItems();
+            iterItems = items.clone();
+            shuffle(iterItems);
             iterSize = size;
             current = 0;
         }

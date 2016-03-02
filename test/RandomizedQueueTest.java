@@ -1,11 +1,12 @@
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.Matchers.*;
+import java.util.NoSuchElementException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.NoSuchElementException;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 @RunWith(JUnit4.class)
 public class RandomizedQueueTest {
