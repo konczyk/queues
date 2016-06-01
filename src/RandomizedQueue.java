@@ -29,7 +29,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public void enqueue(Item item) {
         if (item == null) {
-            throw new NullPointerException("Item cannot be null");
+            throw new NullPointerException("item cannot be null");
         }
 
         // enlarge array if necessary
@@ -43,7 +43,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // remove and return a random item
     public Item dequeue() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Dequeue from empty queue");
+            throw new NoSuchElementException("dequeue from empty queue");
         }
 
         int randomItemIndex = rand.nextInt(size);
@@ -73,7 +73,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // return a random item from the queue
     public Item sample() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Sample from empty queue");
+            throw new NoSuchElementException("sample from empty queue");
         }
 
         return items[rand.nextInt(size)];
@@ -112,12 +112,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
 
         public void remove() {
-            throw new UnsupportedOperationException("Operation not supported");
+            throw new UnsupportedOperationException("operation not supported");
         }
 
         public Item next() {
             if (!hasNext()) {
-                throw new NoSuchElementException("Next item does not exist");
+                throw new NoSuchElementException("next item does not exist");
             }
 
             return iterItems[current++];

@@ -1,50 +1,63 @@
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(JUnit4.class)
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 public class DequeTest {
 
-    @Test(expected = NullPointerException.class)
-    public void throwExceptionWhenAddingNullAtFront() {
-        Deque<Integer> deque = new Deque<>();
-        deque.addFirst(null);
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void addFirstNullThrowsException() {
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("item cannot be null");
+
+        new Deque<>().addFirst(null);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void throwExceptionWhenAddingNullAtTail() {
-        Deque<Integer> deque = new Deque<>();
-        deque.addLast(null);
+    @Test
+    public void addLastNullThrowsException() {
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("item cannot be null");
+
+        new Deque<>().addLast(null);
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void throwExceptionWhenRemovingFromEmptyDequeHead() {
-        Deque<Integer> deque = new Deque<>();
-        deque.removeFirst();
+    @Test
+    public void removeFirstWhenEmptyThrowsException() {
+        thrown.expect(NoSuchElementException.class);
+        thrown.expectMessage("cannot remove from empty deque");
+
+        new Deque<>().removeFirst();
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void throwExceptionWhenRemovingFromEmptyDequeTail() {
-        Deque<Integer> deque = new Deque<>();
-        deque.removeLast();
+    @Test
+    public void removeLastWhenEmptyThrowsException() {
+        thrown.expect(NoSuchElementException.class);
+        thrown.expectMessage("cannot remove from empty deque");
+
+        new Deque<>().removeLast();
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void throwExceptionWhenRemovingFromIterator() {
-        Deque<Integer> deque = new Deque<>();
-        deque.iterator().remove();
+    @Test
+    public void removeFromIteratorThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("operation not supported");
+
+        new Deque<>().iterator().remove();
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void throwExceptionWhenCallingNextWithNoMoreItems() {
-        Deque<Integer> deque = new Deque<>();
-        deque.iterator().next();
+    @Test
+    public void nextOnExhaustedIteratorThrowsException() {
+        thrown.expect(NoSuchElementException.class);
+        thrown.expectMessage("next item does not exist");
+
+        new Deque<>().iterator().next();
     }
 
     @Test
