@@ -23,39 +23,52 @@ where k is the number of strings to print
 `java.util.NoSuchElementException`
 
 
-## Examples 
+## Sample client
 
 Build a jar file:
 
     $ ./gradlew assemble
 
-Print 4 strings from the input sequence, uniformly at random, using a simple 
-Subset client:
+Client options:
 
-    $ echo "A B C D E F G H I" | java -cp build/libs/queues.jar Subset 4 
+    $ java -cp build/libs/queues.jar Subset -h
+
+Print a subset of 4 strings from the input sequence, uniformly at random:
+
+    $ echo "A B C D E F G H I" | java -cp build/libs/queues.jar Subset -k 4 -
 
     D
     C
     G
     F
 
-Print 4 strings from the generated input of 100000 strings, uniformly at 
-random, using a simple Subset client:
+Print a subset of 4 strings from the input sequence, uniformly at random,
+using reservoir sampling to limit the maximum size of the queue to k:
 
-    $ ./gen_strings.py 100000 | java -cp build/libs/queues.jar Subset 4 
+    $ echo "A B C D E F G H I" | java -cp build/libs/queues.jar Subset -k 4 -s -
 
-    CB
-    BCA
+    D
+    C
+    G
+    F
+
+Print a subset of 4 strings from the generated input of 100000 strings,
+uniformly at random:
+
+    $ java -cp build/libs/queues.jar Subset -k 4 -n 100000
+
+    BCC
     A
-    BC
+    BHE
+    FFG
 
-Print 4 strings from the generated input of 100000 strings (up to 5 chars long), 
-uniformly at random, using a SubsetSampled client which implements a reservoir 
-sampling to limit the size of a queue:
+Print a subset of 4 strings from the generated input of 100000 strings (up to 5
+chars long each), uniformly at random, using reservoir sampling to limit the
+maximum size of the queue to k:
 
-    $ ./gen_strings.py 100000 --maxlen 5 | java -cp build/libs/queues.jar SubsetSampled 4 
+    $ java -cp build/libs/queues.jar Subset -k 4 -n 100000 -m 5 -s
 
-    EAD
-    BECDA
-    DCAE
-    BAC
+    BBAAD
+    I
+    FFEE
+    IH

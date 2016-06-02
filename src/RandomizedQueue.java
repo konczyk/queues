@@ -107,14 +107,17 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             current = 0;
         }
 
+        @Override
         public boolean hasNext() {
             return current < iterSize;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException("operation not supported");
         }
 
+        @Override
         public Item next() {
             if (!hasNext()) {
                 throw new NoSuchElementException("next item does not exist");
