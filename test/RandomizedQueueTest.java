@@ -1,7 +1,13 @@
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isIn;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -59,7 +65,7 @@ public class RandomizedQueueTest {
         queue.enqueue(5);
 
         assertThat(queue.size(), is(1));
-        assertThat(queue.iterator().next(), is(5));
+        assertThat(queue, contains(5));
     }
 
     @Test
@@ -78,19 +84,14 @@ public class RandomizedQueueTest {
 
         queue.enqueue(1);
         queue.enqueue(2);
-        int s1 = 0, s2 = 0;
-        for (int i = 0; i < 100; ++i) {
-            int sample = queue.sample();
-            if (sample == 1) {
-                s1++;
-            } else if (sample == 2) {
-                s2++;
-            }
+        List<Integer> samples = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            samples.add(queue.sample());
         }
 
         assertThat(queue.size(), is(2));
-        assertThat(s1, greaterThan(0));
-        assertThat(s2, greaterThan(0));
+        assertThat(samples, hasItems(1, 2));
+        assertThat(samples, everyItem(isIn(Arrays.asList(1, 2))));
     }
 
 }

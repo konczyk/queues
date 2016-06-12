@@ -1,4 +1,5 @@
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
 import java.util.Iterator;
@@ -66,11 +67,8 @@ public class DequeTest {
 
         deque.addFirst(5);
         deque.addFirst(8);
-        Iterator<Integer> it = deque.iterator();
 
-        assertThat(deque.size(), is(2));
-        assertThat(it.next(), is(8));
-        assertThat(it.next(), is(5));
+        assertThat(deque, contains(8, 5));
     }
 
     @Test
@@ -81,9 +79,7 @@ public class DequeTest {
         deque.addLast(8);
         Iterator<Integer> it = deque.iterator();
 
-        assertThat(deque.size(), is(2));
-        assertThat(it.next(), is(5));
-        assertThat(it.next(), is(8));
+        assertThat(deque, contains(5, 8));
     }
 
     @Test
@@ -94,8 +90,7 @@ public class DequeTest {
         deque.addFirst(8);
 
         assertThat(deque.removeFirst(), is(8));
-        assertThat(deque.size(), is(1));
-        assertThat(deque.iterator().next(), is(5));
+        assertThat(deque, contains(5));
     }
 
     @Test
@@ -106,8 +101,7 @@ public class DequeTest {
         deque.addFirst(8);
 
         assertThat(deque.removeLast(), is(5));
-        assertThat(deque.size(), is(1));
-        assertThat(deque.iterator().next(), is(8));
+        assertThat(deque, contains(8));
     }
 
     @Test
@@ -119,7 +113,7 @@ public class DequeTest {
         deque.addFirst(8);
 
         assertThat(deque.size(), is(1));
-        assertThat(deque.iterator().next(), is(8));
+        assertThat(deque, contains(8));
     }
 
     @Test
